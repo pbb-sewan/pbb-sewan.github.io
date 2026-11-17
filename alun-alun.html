@@ -600,19 +600,19 @@ async function hashPin(pin,salt){
 async function savePin(pin){
   const salt = crypto.randomUUID();
   const hash = await hashPin(pin,salt);
-  localStorage.setItem('pbb_pin_salt',salt);
-  localStorage.setItem('pbb_pin_hash',hash);
+  localStorage.setItem('pbb_pin_salt_ALUN_ALUN',salt);
+  localStorage.setItem('pbb_pin_hash_ALUN_ALUN',hash);
 }
 
 async function verifyPin(pin){
-  const salt = localStorage.getItem('pbb_pin_salt');
-  const saved = localStorage.getItem('pbb_pin_hash');
+  const salt = localStorage.getItem('pbb_pin_salt_ALUN_ALUN');
+  const saved = localStorage.getItem('pbb_pin_hash_ALUN_ALUN');
   if(!salt || !saved) return false;
   return (await hashPin(pin,salt))===saved;
 }
 
 function showPinGate(){
-  const hasPin = !!localStorage.getItem('pbb_pin_hash');
+  const hasPin = !!localStorage.getItem('pbb_pin_hash_ALUN_ALUN');
   $('pinTitle').textContent = hasPin ? 'Masukkan PIN Pribadi' : 'Buat PIN Pribadi';
   $('pinInfo').textContent = hasPin
     ? 'Masukkan PIN untuk membuka aplikasi PBB ALUN_ALUN.'
@@ -654,8 +654,8 @@ $('connectionForm').addEventListener('submit',async event=>{
 
   try{
     await connectDatabase(url,key);
-    localStorage.setItem('pbb_supabase_url',url);
-    localStorage.setItem('pbb_supabase_key',key);
+    localStorage.setItem('pbb_supabase_url_ALUN_ALUN',url);
+    localStorage.setItem('pbb_supabase_key_ALUN_ALUN',key);
 
     if(currentUser) showPinGate();
     else setScreen('loginScreen');
@@ -708,7 +708,7 @@ $('pinForm').addEventListener('submit',async event=>{
     return;
   }
 
-  const hasPin = !!localStorage.getItem('pbb_pin_hash');
+  const hasPin = !!localStorage.getItem('pbb_pin_hash_ALUN_ALUN');
 
   try{
     if(!hasPin){
@@ -1458,8 +1458,8 @@ $('restoreFile').addEventListener('change',async event=>{
 });
 
 async function initializeApp(){
-  const savedUrl = localStorage.getItem('pbb_supabase_url');
-  const savedKey = localStorage.getItem('pbb_supabase_key');
+  const savedUrl = localStorage.getItem('pbb_supabase_url_ALUN_ALUN');
+  const savedKey = localStorage.getItem('pbb_supabase_key_ALUN_ALUN');
 
   if(!savedUrl || !savedKey){
     setScreen('connectScreen');
